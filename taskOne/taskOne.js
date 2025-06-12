@@ -49,5 +49,3 @@ function clearIfLarge(set) {
 clearIfLarge(uniqueFood);
 
 
-console.log("Current time is:", new Date());
-console.log({ a: 1, b: 2 });
