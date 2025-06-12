@@ -20,6 +20,7 @@ console.log = function(...args) {
 // arg => typeof arg === 'object' ? JSON.stringify(arg) : arg
 const food = ["Burger","Pizza", "Donuts",
      "Pizza", "Koshary" , "Donuts" , "Seafood" , "Burger"];
+console.log("Food array:", food);
 
 // create set from array and remove duplicates
 const uniqueFood = new Set(food);
