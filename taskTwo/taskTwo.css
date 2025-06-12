@@ -1,0 +1,8 @@
+#log {
+    background-color: #111;
+    color: #0f0;
+    padding: 10px;
+    font-family: monospace;
+    height: 70vh;
+    overflow-y: scroll;
+  }
