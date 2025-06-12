@@ -29,15 +29,15 @@ class Bike extends Vehicle {
 
     constructor() {
         super(2, 'fast enough');
+        Bike.count++;
     }
 
     static countCalls() {
-        Bike.count++;
+        // Bike.count++;
         return Bike.count;
     }
 }
 
 const bike = new Bike();
 const bike2 = new Bike();
-console.log(Bike.countCalls());
 console.log(Bike.countCalls());
