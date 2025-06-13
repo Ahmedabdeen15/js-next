@@ -1,10 +1,6 @@
-const Pizza = document.getElementById('Pizza');
-const Pasta = document.getElementById('Pasta');
-const Beef = document.getElementById('Beef');
-const Salad = document.getElementById('Salad');
 const main = document.querySelector('main');
 const nav = document.querySelector('nav');
-const url = 'https://forkify-api.herokuapp.com/api/search?q=';
+const baseUrl = 'https://forkify-api.herokuapp.com/api/search?q=';
 
 const fetchData = async (url) => {
     main.innerHTML = `
@@ -13,43 +9,23 @@ const fetchData = async (url) => {
         </div>`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
     displayData(data);
 }
 
-Pizza.addEventListener('click', () => {
-    const pizzaUrl = url + 'pizza';
-    nav.querySelectorAll('li').forEach(li => li.classList.remove('active'));
-    Pizza.classList.add('active');
-    fetchData(pizzaUrl);
+nav.addEventListener('click', (event) => {
+    if(event.target.tagName === 'LI'){
+        nav.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+        event.target.classList.add('active');
+        const url = baseUrl + event.target.textContent.toLowerCase();
+        fetchData(url);
+    }
 });
 
-Pasta.addEventListener('click', () => {
-    const pastaUrl = url + 'pasta';
-    nav.querySelectorAll('li').forEach(li => li.classList.remove('active'));
-    Pasta.classList.add('active');
-    fetchData(pastaUrl);
-});
-
-Beef.addEventListener('click', () => {
-    const beefUrl = url + 'beef';
-    nav.querySelectorAll('li').forEach(li => li.classList.remove('active'));
-    Beef.classList.add('active');
-    fetchData(beefUrl);
-});
-
-Salad.addEventListener('click', () => {
-    const saladUrl = url + 'salad';
-    nav.querySelectorAll('li').forEach(li => li.classList.remove('active'));
-    Salad.classList.add('active');
-    fetchData(saladUrl);
-});
 
 
 function displayData(data){
     main.innerHTML = '';
     data.recipes.forEach(recipe => {
-        console.log(recipe);
         const card = document.createElement('div');
         card.classList.add('card');
         card.style.cursor = 'pointer';
@@ -69,7 +45,9 @@ function displayData(data){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    Pizza.click();
+    // Fetch initial data
+    const initialUrl = baseUrl + 'pizza';
+    fetchData(initialUrl);
 });
 /*
 <img src="http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg" alt="">
