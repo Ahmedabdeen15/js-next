@@ -6,118 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Day 3</title>
     <link rel="stylesheet" href="main.css">
-    <script src="main.js"></script>
 </head>
 
 <body>
     <main>
         <div class="form">
-            <form id="form">
-                <input type="text" id="input" placeholder="TaskTitle" required>
+            <form id="form" action="">
+                <input type="hidden" name="id" value="">
+                <input type="text" name="title" id="input" placeholder="Task Title" required>
                 <textarea name="description" id="description" cols="30" rows="4"
                     placeholder="Task Description"></textarea>
-                <input type="submit" value="Add Task" class="">
-                <!-- todo:editButton -->
+                <input type="submit" value="Add Task" >
             </form>
         </div>
         <div id="taskList" class="taskList">
             <h2>Tasks</h2>
             <ul id="tasks">
-                <!-- TODO:Tasks will be dynamically added here -->
-                <li class="done">
-                    <!-- todo: done -->
-                    <h3>Task Title</h3>
-                    <div class="buttons">
-                        <button class="done" title="Mark task as complete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                                <path d="M56 2L18.8 42.9 8 34.7H2L18.8 62 62 2z" />
-                            </svg>
-                        </button>
-                        <button class="edit" title="Edit task"><svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g fill="#292d32">
-                                    <path
-                                        d="m15 22.75h-6c-5.43 0-7.75-2.32-7.75-7.75v-6c0-5.43 2.32-7.75 7.75-7.75h2c.41 0 .75.34.75.75s-.34.75-.75.75h-2c-4.61 0-6.25 1.64-6.25 6.25v6c0 4.61 1.64 6.25 6.25 6.25h6c4.61 0 6.25-1.64 6.25-6.25v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 5.43-2.32 7.75-7.75 7.75z" />
-                                    <path
-                                        d="m8.49935 17.6901c-.61 0-1.17-.22-1.58-.62-.49-.49-.7-1.2-.59-1.95l.43-3.01c.08-.58.46-1.33.87-1.74l7.87995-7.88004c1.99-1.990001 4.01-1.990001 6 0 1.09 1.09 1.58 2.2 1.48 3.31-.09.9-.57 1.78-1.48 2.68l-7.88 7.88004c-.41.41-1.16.79-1.74.87l-3.00995.43c-.13.03-.26.03-.38.03zm8.06995-14.14004-7.87995 7.88004c-.19.19-.41.63-.45.89l-.43 3.01c-.04.29.02.53.17.68s.39.21.68.17l3.00995-.43c.26-.04.71-.26.89-.45l7.88-7.88004c.65-.65.99-1.23 1.04-1.77.06-.65-.28-1.34-1.04-2.11-1.6-1.6-2.7-1.15-3.87.01z" />
-                                    <path
-                                        d="m19.8496 9.82978c-.07 0-.14-.01-.2-.03-2.63-.74-4.72-2.83-5.46-5.46-.11-.4.12-.81.52-.93.4-.11.81.12.92.52.6 2.13 2.29 3.82 4.42 4.42.4.11.63.53.52.93-.09.34-.39.55-.72.55z" />
-                                </g>
-                            </svg></button>
-                        <button class="delete" title="Delete task"><svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                    <path
-                                        d="m3 6h18m-16 0v14c0 1.1046.89543 2 2 2h10c1.1046 0 2-.8954 2-2v-14m-11 0v-2c0-1.10457.89543-2 2-2h4c1.1046 0 2 .89543 2 2v2" />
-                                    <path d="m14 11v6" />
-                                    <path d="m10 11v6" />
-                                </g>
-                            </svg></button>
-                    </div>
-                </li>
-                <li class="">
-                    <h3>Task Title</h3>
-                    <div class="buttons">
-                        <button class="done" title="Mark task as complete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                                <path d="M56 2L18.8 42.9 8 34.7H2L18.8 62 62 2z" />
-                            </svg>
-                        </button>
-                        <button class="edit" title="Edit task"><svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g fill="#292d32">
-                                    <path
-                                        d="m15 22.75h-6c-5.43 0-7.75-2.32-7.75-7.75v-6c0-5.43 2.32-7.75 7.75-7.75h2c.41 0 .75.34.75.75s-.34.75-.75.75h-2c-4.61 0-6.25 1.64-6.25 6.25v6c0 4.61 1.64 6.25 6.25 6.25h6c4.61 0 6.25-1.64 6.25-6.25v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 5.43-2.32 7.75-7.75 7.75z" />
-                                    <path
-                                        d="m8.49935 17.6901c-.61 0-1.17-.22-1.58-.62-.49-.49-.7-1.2-.59-1.95l.43-3.01c.08-.58.46-1.33.87-1.74l7.87995-7.88004c1.99-1.990001 4.01-1.990001 6 0 1.09 1.09 1.58 2.2 1.48 3.31-.09.9-.57 1.78-1.48 2.68l-7.88 7.88004c-.41.41-1.16.79-1.74.87l-3.00995.43c-.13.03-.26.03-.38.03zm8.06995-14.14004-7.87995 7.88004c-.19.19-.41.63-.45.89l-.43 3.01c-.04.29.02.53.17.68s.39.21.68.17l3.00995-.43c.26-.04.71-.26.89-.45l7.88-7.88004c.65-.65.99-1.23 1.04-1.77.06-.65-.28-1.34-1.04-2.11-1.6-1.6-2.7-1.15-3.87.01z" />
-                                    <path
-                                        d="m19.8496 9.82978c-.07 0-.14-.01-.2-.03-2.63-.74-4.72-2.83-5.46-5.46-.11-.4.12-.81.52-.93.4-.11.81.12.92.52.6 2.13 2.29 3.82 4.42 4.42.4.11.63.53.52.93-.09.34-.39.55-.72.55z" />
-                                </g>
-                            </svg></button>
-                        <button class="delete" title="Delete task"><svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                    <path
-                                        d="m3 6h18m-16 0v14c0 1.1046.89543 2 2 2h10c1.1046 0 2-.8954 2-2v-14m-11 0v-2c0-1.10457.89543-2 2-2h4c1.1046 0 2 .89543 2 2v2" />
-                                    <path d="m14 11v6" />
-                                    <path d="m10 11v6" />
-                                </g>
-                            </svg></button>
-                    </div>
-                    
-                </li>
-                <li class="">
-                    <h3>Task Title</h3>
-                    <div class="buttons">
-                        <button class="done" title="Mark task as complete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                                <path d="M56 2L18.8 42.9 8 34.7H2L18.8 62 62 2z" />
-                            </svg>
-                        </button>
-                        <button class="edit" title="Edit task"><svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g fill="#292d32">
-                                    <path
-                                        d="m15 22.75h-6c-5.43 0-7.75-2.32-7.75-7.75v-6c0-5.43 2.32-7.75 7.75-7.75h2c.41 0 .75.34.75.75s-.34.75-.75.75h-2c-4.61 0-6.25 1.64-6.25 6.25v6c0 4.61 1.64 6.25 6.25 6.25h6c4.61 0 6.25-1.64 6.25-6.25v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 5.43-2.32 7.75-7.75 7.75z" />
-                                    <path
-                                        d="m8.49935 17.6901c-.61 0-1.17-.22-1.58-.62-.49-.49-.7-1.2-.59-1.95l.43-3.01c.08-.58.46-1.33.87-1.74l7.87995-7.88004c1.99-1.990001 4.01-1.990001 6 0 1.09 1.09 1.58 2.2 1.48 3.31-.09.9-.57 1.78-1.48 2.68l-7.88 7.88004c-.41.41-1.16.79-1.74.87l-3.00995.43c-.13.03-.26.03-.38.03zm8.06995-14.14004-7.87995 7.88004c-.19.19-.41.63-.45.89l-.43 3.01c-.04.29.02.53.17.68s.39.21.68.17l3.00995-.43c.26-.04.71-.26.89-.45l7.88-7.88004c.65-.65.99-1.23 1.04-1.77.06-.65-.28-1.34-1.04-2.11-1.6-1.6-2.7-1.15-3.87.01z" />
-                                    <path
-                                        d="m19.8496 9.82978c-.07 0-.14-.01-.2-.03-2.63-.74-4.72-2.83-5.46-5.46-.11-.4.12-.81.52-.93.4-.11.81.12.92.52.6 2.13 2.29 3.82 4.42 4.42.4.11.63.53.52.93-.09.34-.39.55-.72.55z" />
-                                </g>
-                            </svg></button>
-                        <button class="delete" title="Delete task"><svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                    <path
-                                        d="m3 6h18m-16 0v14c0 1.1046.89543 2 2 2h10c1.1046 0 2-.8954 2-2v-14m-11 0v-2c0-1.10457.89543-2 2-2h4c1.1046 0 2 .89543 2 2v2" />
-                                    <path d="m14 11v6" />
-                                    <path d="m10 11v6" />
-                                </g>
-                            </svg></button>
-                    </div>
-                    
-                </li>
-                
+                <!-- Tasks will be dynamically added here -->
             </ul>
         </div>
     </main>
 </body>
+    <script src="main.js"></script>
 
 </html>

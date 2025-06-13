@@ -186,3 +186,6 @@ form label{
     fill: gray;
 }
 
+.hidden{
+    display: none;
+}
