@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Day 3</title>
     <link rel="stylesheet" href="main.css">
-    <script src="main.js"></script>
 </head>
+
 <body>
-    <main class="Tasks">
-        <a href="taskOne.html" class="tasks">Task 1</a>
-        <a href="taskTwo.html" class="tasks">Task 2</a>
-        <a href="taskThree.html" class="tasks">Task 3</a>
+    <main>
+        <div class="form">
+            <form id="form">
+                <input type="hidden" name="id" value="">
+                <input type="text" name="title" id="input" placeholder="Task Title" required>
+                <textarea name="description" id="description" cols="30" rows="4"
+                    placeholder="Task Description"></textarea>
+                <input type="submit" value="Add Task" >
+            </form>
+        </div>
+        <div id="taskList" class="taskList">
+            <h2>Tasks</h2>
+            <ul id="tasks">
+                <!-- Tasks will be dynamically added here -->
+            </ul>
+        </div>
     </main>
+    <script src="main.js"></script>
 </body>
 </html>
