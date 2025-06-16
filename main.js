@@ -14,16 +14,19 @@ class TaskManager {
                 },
                 body: JSON.stringify(task),
             });
-            const newTask = await response.json();
-            this.tasks.push(newTask);
-            return newTask;
+            //if the server returns the created task respond with new data(id,timestamp .....), we can push it to the tasks array
+            // const newTask = await response.json();
+            // this.tasks.push(newTask);
+            //  return newTask;
+            this.tasks.push(task);
+            return task;
         }
         catch (error) {
             console.error('Error adding task:', error);
             throw error;
         }
     }
-    async getTasks() {
+    async loadTasks() {
         try {
             const response = await fetch(this.apiUrl);
             this.tasks = await response.json();
@@ -33,6 +36,9 @@ class TaskManager {
             console.error('Error fetching tasks:', error);
             throw error;
         }
+    }
+    getTasks() {
+        return this.tasks;
     }
     async updateTask(id, updatedTask) {
         try {
@@ -68,7 +74,7 @@ class TaskManager {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...task }),
+                body: JSON.stringify(task),
             });
         }
         catch (error) {
@@ -95,8 +101,13 @@ class TaskManager {
 const taskManager = new TaskManager();
 const form = document.querySelector('form');
 const taskList = document.getElementById('tasks');
-form?.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    await handleFormSubmit(e);
+    return false;
+});
+const handleFormSubmit = async (e) => {
     const formData = new FormData(e.target);
     const taskId = formData.get('id');
     if (taskId) {
@@ -119,14 +130,14 @@ form?.addEventListener('submit', async (e) => {
         };
         await taskManager.addTask(task);
     }
-    const tasks = await taskManager.getTasks();
+    const tasks = taskManager.getTasks();
     renderTasks(tasks);
     // Reset form
-    e.target.reset();
+    form.reset();
     const submitInput = form?.querySelector('input[type="submit"]');
     submitInput.value = 'Add Task';
     submitInput.classList.remove('editButton');
-});
+};
 function createTaskElement(task) {
     const li = document.createElement('li');
     li.dataset.id = task.id.toString();
@@ -165,12 +176,16 @@ function createTaskElement(task) {
     const doneButton = li.querySelector('.done');
     const editButton = li.querySelector('.edit');
     const deleteButton = li.querySelector('.delete');
-    doneButton?.addEventListener('click', async () => {
+    doneButton?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         await taskManager.toggleTask(task.id, true);
         const tasks = await taskManager.getTasks();
         renderTasks(tasks);
     });
-    editButton?.addEventListener('click', () => {
+    editButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         const titleInput = form?.querySelector('input[name="title"]');
         const descInput = form?.querySelector('textarea[name="description"]');
         const idInput = form?.querySelector('input[name="id"]');
@@ -181,10 +196,11 @@ function createTaskElement(task) {
         submitInput.value = 'Update Task';
         submitInput.classList.add('editButton');
     });
-    deleteButton?.addEventListener('click', async () => {
+    deleteButton?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         await taskManager.deleteTask(task.id);
-        const tasks = await taskManager.getTasks();
-        renderTasks(tasks);
+        removeTasks(task);
     });
     return li;
 }
@@ -192,7 +208,8 @@ function renderTasks(tasks) {
     if (taskList) {
         tasks.forEach(task => {
             // to optimize performance, we need to check if the task already exists in the list
-            const existingTaskElement = taskList.querySelector(`li[data-id="${task.id}"]`);
+            const s = `li[data-id="${task.id}"]`;
+            const existingTaskElement = taskList.querySelector(s);
             if (existingTaskElement) {
                 // If the task already exists, we can update its content instead of creating a new element
                 existingTaskElement.querySelector('h3').textContent = task.title;
@@ -203,8 +220,19 @@ function renderTasks(tasks) {
         });
     }
 }
+function removeTasks(task) {
+    if (taskList) {
+        const s = `li[data-id="${task.id}"]`;
+        const existingTaskElement = taskList.querySelector(s);
+        if (existingTaskElement) {
+            // If the task already exists, we can remove it from the list
+            taskList.removeChild(existingTaskElement);
+            return;
+        }
+    }
+}
 document.addEventListener('DOMContentLoaded', async () => {
-    const tasks = await taskManager.getTasks();
+    const tasks = await taskManager.loadTasks();
     renderTasks(tasks);
 });
 function generateUniqueNumber() {
